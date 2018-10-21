@@ -1,0 +1,22 @@
+{
+  "name": "elm-todomvc",
+  "version": "1.0.0",
+  "description": "Experiment with elm on TodoMVC.",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon server"
+  },
+  "keywords": [
+    "elm",
+    "todomvc"
+  ],
+  "author": "tom.vejpustek@centrum.cz",
+  "license": "MIT",
+  "devDependencies": {
+    "body-parser": "1.18.3",
+    "express": "4.16.4",
+    "lowdb": "1.0.0",
+    "nodemon": "1.18.4",
+    "uuid": "3.3.2"
+  }
+}

@@ -4,7 +4,9 @@
   "description": "Experiment with elm on TodoMVC.",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon server"
+    "start": "run-p server devserver",
+    "server": "nodemon server",
+    "devserver": "elm reactor"
   },
   "keywords": [
     "elm",
@@ -17,6 +19,7 @@
     "express": "4.16.4",
     "lowdb": "1.0.0",
     "nodemon": "1.18.4",
+    "npm-run-all": "4.1.3",
     "uuid": "3.3.2"
   }
 }

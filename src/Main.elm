@@ -2,6 +2,8 @@ import Browser
 import Html exposing (Html, input, div, text, button, label)
 import Html.Attributes exposing (type_, value, checked)
 import Html.Events exposing (onInput, onClick)
+import Debug exposing (log)
+import Utils exposing (onClickControlled)
 
 main = Browser.sandbox { init = init, update = update, view = view }
 
@@ -26,6 +28,10 @@ init =
 
 type Msg = UpdateInputText String | AddTodo String | CompleteTodo Int
 
+updateTodo : (Todo -> Todo) -> Int -> Model -> Model
+updateTodo updater id model =
+    { model | todos = List.map (\todoItem -> if todoItem.id == id then updater todoItem else todoItem) model.todos }
+
 update : Msg -> Model -> Model
 update msg model =
     case msg of
@@ -35,7 +41,7 @@ update msg model =
             , inputText = ""
             , todos = { id = model.nextId, text= todoText, complete = False }::model.todos
             }
-        CompleteTodo todoId -> { model | todos = List.map (\todoItem -> if todoItem.id == todoId then { todoItem | complete = True } else todoItem) model.todos }
+        CompleteTodo todoId -> updateTodo (\todoItem -> {todoItem | complete = True}) todoId model
 
 view : Model -> Html Msg
 view model =
@@ -49,6 +55,6 @@ todoInput model = div []
 
 todo : Todo -> Html Msg
 todo todoItem = label []
-    [ input [ type_ "checkbox", checked todoItem.complete ] []
+    [ input [ type_ "checkbox", checked todoItem.complete, onClickControlled (CompleteTodo todoItem.id) ] []
     , text todoItem.text
     ]
